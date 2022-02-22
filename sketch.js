@@ -2,6 +2,7 @@ let zoomLevel = 50;
 let forward = true;
 
 function setup() {
+	pixelDensity(1);
 	createCanvas(windowWidth, windowHeight);
 	noFill();
 	stroke(255);
