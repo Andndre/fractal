@@ -7,8 +7,7 @@ function setup() {
 	noFill();
 	stroke(255);
 	frameRate(10);
-	colorMode(RGB, (width + height) / 2);
-	strokeWeight(0.5);
+	strokeWeight(1);
 }
 
 function draw() {
@@ -21,14 +20,16 @@ function draw() {
 		1
 	);
 
-	stroke(width + height);
+	stroke(255);
+	textSize(30);
 	text(
-		"FPS: 10 (limited)" +
+		"FPS: (limited) " +
+			frameRate() +
 			"\ncircle count: " +
 			circleCount +
 			"\npress `w` to move forward\nand `s` to move backward",
 		10,
-		height - 80
+		height - 150
 	);
 
 	if (zoomLevel >= 100000) {
@@ -40,7 +41,7 @@ function draw() {
 }
 
 function circleFractal(x, y, diameter, counter) {
-	if (diameter < 4) return counter - 1;
+	if (diameter < 10) return counter - 1;
 	if (
 		x < -diameter ||
 		x > width + diameter ||
@@ -49,8 +50,8 @@ function circleFractal(x, y, diameter, counter) {
 	) {
 		return counter - 1;
 	}
-	stroke(x, y, (x + y) / 2);
-	circle(x, y, diameter);
+	stroke(255);
+	circle(x, y, diameter * 2);
 	counter = circleFractal(x - diameter / 2, y, diameter / 2, counter + 1);
 	counter = circleFractal(x + diameter / 2, y, diameter / 2, counter + 1);
 	counter = circleFractal(x, y + diameter / 2, diameter / 2, counter + 1);
@@ -68,4 +69,8 @@ function keyPressed() {
 		forward = false;
 		redraw();
 	}
+}
+
+function onWindowResized() {
+	resizeCanvas(windowWidth, windowHeight);
 }
